@@ -1,0 +1,46 @@
+<div>
+  <h2>
+    Formular adaugare articol in lista de inventar
+  </h2>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="NrCrt">NrCrt.:</label>
+      <input type="text" id="nrCrtInput" placeholder="nrCrt" [formControl]="myForm.controls['nrCrt']">
+    </div>
+    <div>
+      <label for="Titlu">Titlu:</label>
+      <input type="text" id="titlu" placeholder="TITLU" [formControl]="myForm.controls['titlu']">
+    </div>
+    <div>
+      <label for="descriere">Descriere: </label>
+      <input type="text" id="descriere" placeholder="DESCRIERE" [formControl]="myForm.controls['descriere']">
+    </div>
+    <div>
+      <label for="unitateMasura">Unitate Masura:</label>
+      <input type="text" id="unitateMasura" placeholder="UNITATE MASURA" [formControl]="myForm.controls['unitateMasura']">
+    </div>
+    <div>
+      <label for="pretBucata">Pret Bucata: </label>
+      <input type="text" id="PretBucata" placeholder="PRET BUCATA" [formControl]="myForm.controls['pretBucata']">
+    </div>
+    <div>
+      <label for="moneda">Moneda: </label>
+      <input type="text" id="moneda" placeholder="MONEDA" [formControl]="myForm.controls['moneda']">
+    </div>
+    <div>
+      <label for="nrBucati">Numar Bucati </label>
+      <input type="text" id="nrBucati" placeholder="NUMAR BUCATI" [formControl]="myForm.controls['nrBucati']">
+    </div>
+    <div>
+      <label for="perioadaAmortizare">Perioada de amortizare:</label>
+      <input type="text" id="perioadaAmortizare" placeholder="PERIOADA AMORTIZARE" [formControl]="myForm.controls['perioadaAmortizare']">
+    </div>
+    <button type="submit">Adauga articol</button>
+  </form>
+</div>
+<h1> Lista de inventar: </h1>
+<div *ngFor="let item of lista">
+  {{item.nrCrt}} | {{item.titlu}} | {{item.descriere}}
+  <br>
+  <br>
+</div>
