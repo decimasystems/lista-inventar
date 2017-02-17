@@ -19,85 +19,34 @@ api.post('/listaInventar', (req: Request, res: Response, next: NextFunction) => 
         res.json(article);
     });
 });
+
+api.put('/listaInventar/:nrCrt', (req: Request, res: Response, next: NextFunction) => {
+    DB.updateArticle(req.params.nrCrt, req.body, (article: ListaInventar) => {
+        res.json(article);
+    });
+});
+
+
+api.delete('/listaInventar/:nrCrt', (req: Request, res: Response, next: NextFunction) => {
+    DB.deleteArticle(req.params.nrCrt, (nrCrt) => {
+        res.json(nrCrt);
+    });
+});
+
+
+
+
 export { api };
 
 
-// api.get('/tasks', (req: Request, res: Response, next: NextFunction) => {
-//   DB.tasks.find().toArray().then((err, tasks) => {
-//     if (err) {
-//       res.send(err);
-//     }
-//     res.json(tasks);
-//   });
-// });
-
-// //get single task
-
-// api.get('/tasks/:id', (req: Request, res: Response, next: NextFunction) => {
-//   DB.tasks.findOne({ _id: new ObjectID(req.params.id) }, (err, task) => {
-//     if (err) {
-//       res.send(err);
-//     }
-//     res.json(task);
-//   });
-// });
-
-// // save task
-
-// api.post('/task', (req: Request, res: Response, next: NextFunction) => {
-//   var task = req.body;
-//   if (!task.title || !(task.isDone + '')) {
-//     res.status(400);
-//     res.json({
-//       "error": "bad data"
+// api.delete('/listaInventar/:nrCrt', (req: Request, res: Response) => {
+//     DB.listaInventar.remove ({ nrCrt: req.params.nrCrt}, (err,listaInventar) => {
+//         console.log("nr crt are valoarea: "+req.params.nrCrt);
+//         if(err) {
+//             res.send(err);
+//         } else {
+//         res.json(req.body);
+//         }
 //     });
-//   } else {
-//     DB.tasks.save(task, (err, task) => {
-//       if (err) {
-//         res.send(err);
-//       }
-//       res.json(task);
-
-//     });
-//   }
 // });
 
-// //delete task
-
-// api.delete('/task/:id', (req: Request, res: Response, next: NextFunction) => {
-//   DB.tasks.remove({ _id: new ObjectID(req.params.id) }, (err, task) => {
-//     if (err) {
-//       res.send(err);
-//     }
-//     res.json(task);
-//   });
-// });
-
-// // update
-// api.put('/task/:id', (req: Request, res: Response, next: NextFunction) => {
-//   var task = req.body;
-//   var updTask: any = {};
-//   if (task.isDOne) {
-//     updTask.isDone = task.isDone;
-//   }
-//   if (task.title) {
-//     updTask.title = task.title;
-//   }
-//   if (!updTask) {
-//     res.status(400);
-//     res.json({
-//       "error": "bad data"
-//     });
-//   } else {
-//     DB.tasks.update({ _id: new ObjectID(req.params.id) }, updTask, {}, (err, task) => {
-//       if (err) {
-//         res.send(err);
-//       }
-//       res.json(task);
-//     });
-
-//   }
-
-// });
-
-// export { api };

@@ -14,30 +14,61 @@ export class InventarComponent implements OnInit {
       this.lista = list;
     });
     this.myForm = fb.group({
-      'nrCrt': [''],
-      'titlu': [''],
-      'descriere': [''],
-      'unitateMasura': [''],
-      'pretBucata': [''],
-      'moneda': [''],
-      'nrBucati': [''],
-      'perioadaAmortizare': ['']
+      'nrCrt': ['', Validators.required],
+      'titlu': ['', Validators.required],
+      'descriere': ['', Validators.required],
+      'unitateMasura': ['', Validators.required],
+      'pretBucata': ['', Validators.required],
+      'moneda': ['', Validators.required],
+      'nrBucati': ['', Validators.required],
+      'perioadaAmortizare': ['', Validators.required]
     });
-    
+
   }
 
-  addTask() {
+  addArticle() {
     this.inventoryService.addArticle(this.myForm.value)
-      .subscribe(task => {
-        this.lista.push(task);
+      .subscribe(article => {
+        this.lista.push(article);
         this.myForm.reset();
-       });
+      });
+  }
+
+  updateArticle(nrCrt) {
+    if (this.myForm.valid) {
+      console.log("incerc sa modific articolul cu nrCrt: " + nrCrt);
+      this.inventoryService.updateArticle(this.myForm.value, nrCrt)
+        .subscribe(article => {
+          for (var i = 0; i < this.lista.length; i++) {
+            if (this.lista[i].nrCrt == article.nrCrt) {
+              this.lista[i] = article;
+            }
+          }
+        });
+    } else {
+      console.log("form is not valid ");
+    }
+  }
+  deleteArticle(nrCrt) {
+    this.inventoryService.deleteArticle(nrCrt)
+      .subscribe(() => {
+        for (var i = 0; i < this.lista.length; i++) {
+          if (this.lista[i].nrCrt == nrCrt) {
+            this.lista.splice(i, 1);
+            console.log('incerc sa sterg elem cu nr crt ' + nrCrt);
+          }
+        }
+      }
+      );
   }
 
   onSubmit() {
-    
-    console.log("obiect: " + JSON.stringify(this.myForm.value));
-    this.addTask();
+    if (this.myForm.valid) {
+      console.log("obiect: " + JSON.stringify(this.myForm.value));
+      this.addArticle();
+    } else {
+      console.log("form is not invalid " + this.myForm.errors);
+    }
   }
 
   ngOnInit() {

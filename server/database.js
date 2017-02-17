@@ -45,6 +45,36 @@ var DataBase = (function () {
             });
         });
     };
+    DataBase.prototype.deleteArticle = function (nrCrt, callback) {
+        this.db.collection('listaInventar', function (err, inventar) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            inventar.deleteOne({ nrCrt: nrCrt }, function (err, articleObj) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                callback(nrCrt);
+            });
+        });
+    };
+    DataBase.prototype.updateArticle = function (nrCrt, article, callback) {
+        this.db.collection('listaInventar', function (err, inventar) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            inventar.findOneAndUpdate({ nrCrt: nrCrt }, article, function (err, result) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                callback(article);
+            });
+        });
+    };
     return DataBase;
 }());
 exports.DataBase = DataBase;

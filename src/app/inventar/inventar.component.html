@@ -2,45 +2,52 @@
   <h2>
     Formular adaugare articol in lista de inventar
   </h2>
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <div>
+  <form [formGroup]="myForm" class="well">
+    <div class="form-group">
       <label for="NrCrt">NrCrt.:</label>
-      <input type="text" id="nrCrtInput" placeholder="nrCrt" [formControl]="myForm.controls['nrCrt']">
+      <input type="text" id="nrCrtInput" placeholder="nrCrt" [formControl]="myForm.controls['nrCrt']" #crt>
     </div>
-    <div>
+    <div class="form-group">
       <label for="Titlu">Titlu:</label>
       <input type="text" id="titlu" placeholder="TITLU" [formControl]="myForm.controls['titlu']">
     </div>
-    <div>
+    <div class="form-group">
       <label for="descriere">Descriere: </label>
       <input type="text" id="descriere" placeholder="DESCRIERE" [formControl]="myForm.controls['descriere']">
     </div>
-    <div>
+    <div class="form-group">
       <label for="unitateMasura">Unitate Masura:</label>
       <input type="text" id="unitateMasura" placeholder="UNITATE MASURA" [formControl]="myForm.controls['unitateMasura']">
     </div>
-    <div>
+    <div class="form-group">
       <label for="pretBucata">Pret Bucata: </label>
       <input type="text" id="PretBucata" placeholder="PRET BUCATA" [formControl]="myForm.controls['pretBucata']">
     </div>
-    <div>
+    <div class="form-group">
       <label for="moneda">Moneda: </label>
       <input type="text" id="moneda" placeholder="MONEDA" [formControl]="myForm.controls['moneda']">
     </div>
-    <div>
+    <div class="form-group">
       <label for="nrBucati">Numar Bucati </label>
       <input type="text" id="nrBucati" placeholder="NUMAR BUCATI" [formControl]="myForm.controls['nrBucati']">
     </div>
-    <div>
+    <div class="form-group">
       <label for="perioadaAmortizare">Perioada de amortizare:</label>
       <input type="text" id="perioadaAmortizare" placeholder="PERIOADA AMORTIZARE" [formControl]="myForm.controls['perioadaAmortizare']">
     </div>
-    <button type="submit">Adauga articol</button>
+    <button class="btn" (click)="onSubmit()">Adauga articol</button>
+    <button class="btn" (click)="updateArticle(crt.value)">Modifica articol</button>
   </form>
 </div>
 <h1> Lista de inventar: </h1>
-<div *ngFor="let item of lista">
-  {{item.nrCrt}} | {{item.titlu}} | {{item.descriere}}
-  <br>
-  <br>
+<div class="task-list">
+  <div *ngFor="let item of lista">
+    <div>
+      <h2> {{item.nrCrt}} | {{item.titlu}} | {{item.descriere}} | {{item.unitateMasura}} | {{item.pretBucata}} | {{item.moneda}}
+        | {{item.nrBucati}} | {{item.perioadaAmortizare}} </h2>
+      <input class="btn" type="button" (click)="deleteArticle(item.nrCrt)" value="Sterge Articol">
+      <br>
+      <br>
+    </div>
+  </div>
 </div>
